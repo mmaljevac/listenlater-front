@@ -68,13 +68,18 @@ const Home = () => {
         {albums.length !== 0 ? (
           albums.map((album) => (
             <li key={album.name}>
-              <a href={album.imgUrl}>
+              <Link to={`https://www.last.fm/music/${album.artist.replace(/ /g, '+')}/${album.name.replace(/ /g, '+')}`}>
+                <div
+                  className="closeButton"
+                  onClick={(e) => handleDelete(album.id)}
+                >
+                  ❌
+                </div>
                 <div>
                   <img src={album.imgUrl} /> <br />
                   {album.name} • {album.artist}
                 </div>
-              </a>
-              <Link onClick={(e) => handleDelete(album.id)}>X</Link>
+              </Link>
             </li>
           ))
         ) : (

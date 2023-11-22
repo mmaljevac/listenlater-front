@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  // State to track input values
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -17,12 +18,34 @@ const Register = () => {
     });
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your registration logic here
-    console.log('Form submitted with data:', formData);
-    // You can send this data to your server for registration
+
+    const username = formData.username;
+    const email = formData.email;
+    const password = formData.password;
+    const isAdmin = false;
+
+    await fetch("http://localhost:8080/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password, isAdmin }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        navigate('/login');
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        alert('Email already exists!');
+      });
   };
 
   return (
@@ -70,4 +93,4 @@ const Register = () => {
   );
 };
 
-export default Register
+export default Register;

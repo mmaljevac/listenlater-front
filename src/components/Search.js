@@ -10,16 +10,18 @@ const Search = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&limit=30&api_key=6114c4f9da678af26ac5a4afc15d9c4f&format=json`
-      );
-      const data = await response.json();
+    if (searchTerm) {
+      try {
+        const response = await fetch(
+          `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&limit=30&api_key=6114c4f9da678af26ac5a4afc15d9c4f&format=json`
+        );
+        const data = await response.json();
 
-      setSearchResults(data.results.albummatches.album);
-      console.log(searchResults);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+        setSearchResults(data.results.albummatches.album);
+        console.log(searchResults);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -43,7 +45,7 @@ const Search = () => {
         return response.json();
       })
       .then(() => {
-          navigate('/');
+        navigate("/");
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -57,16 +59,26 @@ const Search = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Album name"
+        style={{ textAlign: "center" }}
       />{" "}
       <br></br>
       <button onClick={handleSearch}>Search</button>
-      <ul>
+      <ul className="seachUl">
         {searchResults.map((album) => (
-          <li key={album.name} onClick={() => handleAlbumClick(album)}>
-            <div>
-              <img src={album.image[3]["#text"]} /> <br />
-              {album.name} • {album.artist}
-            </div>
+          <li
+            className="seachLi"
+            key={album.name}
+            onClick={() => handleAlbumClick(album)}
+          >
+            <a>
+              <div className="searchItems">
+                <div className="addButton">+</div>
+                <img src={album.image[3]["#text"]} />
+                <aside>
+                  {album.name} • {album.artist}
+                </aside>
+              </div>
+            </a>
           </li>
         ))}
       </ul>
