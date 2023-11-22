@@ -3,27 +3,69 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: red;
+  font-size: large;
+  background-color: #1d1d1d;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  max-width: 800px;
+  min-width: 500px;
+}
+
+.headerLeft {
+  flex: 1;
+  padding: 1rem;
+}
+.headerMiddle {
+  flex: 1;
+  padding: 1rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  box-shadow: 2 2 2px rgba(0, 0, 0, 0.1);
+}
+.headerRight {
+  flex: 1;
+  padding: 1rem;
+  text-align: right;
+}
+
+.content {
+  max-width: 800px;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 75%;
+  }
+
+  &:active {
+    opacity: 50%;
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
