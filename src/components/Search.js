@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../AppContext";
+import { Navigate } from "react-router-dom";
 
 const Search = () => {
+  const { curUser } = useContext(AppContext);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -28,7 +32,7 @@ const Search = () => {
     }
   };
 
-  return (
+  return curUser ? (
     <div className="content">
       <input
         type="text"
@@ -54,6 +58,8 @@ const Search = () => {
         ))}
       </ul>
     </div>
+  ) : (
+    <Navigate to={{ pathname: '/login' }} />
   );
 };
 

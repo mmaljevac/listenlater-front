@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../AppContext";
 
 const Login = () => {
+  const { setCurUser } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -38,7 +40,8 @@ const Login = () => {
       .then((data) => {
         console.log(data)
         if(data !== undefined) {
-          alert('Logged in!');
+          setCurUser(data);
+          sessionStorage.setItem('curUser', JSON.stringify(data));
           navigate('/');
         }
         else {
