@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
 
 const Login = () => {
@@ -30,7 +30,6 @@ const Login = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        console.log(response)
         if (response.status === 204 || response.headers.get('Content-Length') === '0') {
           return;
         }
@@ -81,6 +80,7 @@ const Login = () => {
           <button type="submit">Login</button>
         </div>
       </form>
+      <p><Link to={'/register'}>Don't have an account? Register here</Link></p>
     </div>
   );
 };

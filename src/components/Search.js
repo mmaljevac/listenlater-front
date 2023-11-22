@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../AppContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Search = () => {
   const { curUser } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -11,7 +12,7 @@ const Search = () => {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&limit=12&api_key=6114c4f9da678af26ac5a4afc15d9c4f&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&limit=30&api_key=6114c4f9da678af26ac5a4afc15d9c4f&format=json`
       );
       const data = await response.json();
 
@@ -23,13 +24,30 @@ const Search = () => {
   };
 
   const handleAlbumClick = async (album) => {
-    try {
-      // Ovdje dodajte kod za slanje odabranog albuma na backend
-      // Primjer: fetch('backend-url', { method: 'POST', body: JSON.stringify(album) });
-      console.log("Album poslan na backend:", album);
-    } catch (error) {
-      console.error("Error sending album to backend:", error);
-    }
+    console.log(album);
+    const name = album.name;
+    const artist = album.artist;
+    const imgUrl = album.image[3]["#text"];
+    const idUser = curUser.id;
+    await fetch("http://localhost:8080/albums", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, artist, imgUrl, idUser }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+          navigate('/');
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
   };
 
   return curUser ? (
@@ -45,12 +63,10 @@ const Search = () => {
       <ul>
         {searchResults.map((album) => (
           <li key={album.name} onClick={() => handleAlbumClick(album)}>
-            <a href={album.url}>
-              <div>
-                <img src={album.image[3]["#text"]} /> <br/>
-                {album.name} <br/> {album.artist}
-              </div>
-            </a>
+            <div>
+              <img src={album.image[3]["#text"]} /> <br />
+              {album.name} • {album.artist}
+            </div>
           </li>
         ))}
       </ul>

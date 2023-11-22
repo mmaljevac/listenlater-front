@@ -19,7 +19,6 @@ const Home = () => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
-          console.log(response);
           if (
             response.status === 204 ||
             response.headers.get("Content-Length") === "0"
@@ -30,12 +29,9 @@ const Home = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          console.log("------");
           if (data) {
             setAlbums(data);
           }
-          console.log(albums);
         })
         .catch((error) => {
           console.error("Fetch error:", error);
@@ -69,18 +65,23 @@ const Home = () => {
     <div className="content">
       <p>Hello, {curUser.username}</p>
       <ul>
-        {albums.map((album) => (
-          <li key={album.name}>
-            <a href={album.imgUrl}>
-              <div>
-                <img src={album.imgUrl} /> <br />
-                <p>{album.name}</p>
-                {album.artist}
-              </div>
-            </a>
-            <Link onClick={(e) => handleDelete(album.id)}>X</Link>
-          </li>
-        ))}
+        {albums.length !== 0 ? (
+          albums.map((album) => (
+            <li key={album.name}>
+              <a href={album.imgUrl}>
+                <div>
+                  <img src={album.imgUrl} /> <br />
+                  {album.name} • {album.artist}
+                </div>
+              </a>
+              <Link onClick={(e) => handleDelete(album.id)}>X</Link>
+            </li>
+          ))
+        ) : (
+          <>
+            <p>Click on the plus to add an album!</p>
+          </>
+        )}
       </ul>
     </div>
   ) : (
