@@ -30,8 +30,6 @@ header {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  border-radius: 8px;
-  box-shadow: 2 2 2px rgba(0, 0, 0, 0.1);
 }
 .headerRight {
   flex: 1;
@@ -56,8 +54,12 @@ ul {
 }
 
 li {
-  margin: 1rem;
-    width: 23%;
+  padding: 1rem;
+  width: 23%;
+}
+
+img {
+  width: 200px;
 }
 
 a {

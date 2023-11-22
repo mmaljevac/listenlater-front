@@ -47,11 +47,8 @@ const Search = () => {
           <li key={album.name} onClick={() => handleAlbumClick(album)}>
             <a href={album.url}>
               <div>
-                <img
-                  src={album.image[2]["#text"]}
-                />{" "}
-                <br></br>
-                {album.name} by {album.artist}
+                <img src={album.image[3]["#text"]} /> <br/>
+                {album.name} <br/> {album.artist}
               </div>
             </a>
           </li>
@@ -59,7 +56,7 @@ const Search = () => {
       </ul>
     </div>
   ) : (
-    <Navigate to={{ pathname: '/login' }} />
+    <Navigate to={{ pathname: "/login" }} />
   );
 };
 
