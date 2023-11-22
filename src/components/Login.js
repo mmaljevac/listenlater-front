@@ -1,9 +1,85 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-export default Login
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await fetch("http://localhost:8080/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log(response)
+        if (response.status === 204 || response.headers.get('Content-Length') === '0') {
+          return;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data)
+        if(data !== undefined) {
+          alert('Logged in!');
+          navigate('/');
+        }
+        else {
+          alert('Wrong email/password!');
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+        </div>
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Login;

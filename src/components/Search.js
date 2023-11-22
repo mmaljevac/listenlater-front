@@ -7,7 +7,7 @@ const Search = () => {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&limit=10&api_key=6114c4f9da678af26ac5a4afc15d9c4f&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&limit=12&api_key=6114c4f9da678af26ac5a4afc15d9c4f&format=json`
       );
       const data = await response.json();
 
@@ -44,9 +44,9 @@ const Search = () => {
             <a href={album.url}>
               <div>
                 <img
-                  src={album.image[1]["#text"]}
-                  alt={`Album cover for ${album.name}`}
-                />
+                  src={album.image[2]["#text"]}
+                />{" "}
+                <br></br>
                 {album.name} by {album.artist}
               </div>
             </a>
