@@ -37,7 +37,6 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data)
         if(data !== undefined) {
           setCurUser(data);
           sessionStorage.setItem('curUser', JSON.stringify(data));

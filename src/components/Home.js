@@ -63,7 +63,7 @@ const Home = () => {
 
   return curUser ? (
     <div className="content">
-      <p>Hello, {curUser.username}</p>
+    {curUser.admin ? <Link to={'/admin'} style={{color: 'red'}}>Admin room</Link> : <p>Hello, {curUser.username}</p>}
       <ul>
         {albums.length !== 0 ? (
           albums.map((album) => (

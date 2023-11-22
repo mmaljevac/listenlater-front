@@ -199,4 +199,24 @@ form div {
 
 label {
   padding: 10px 10px 10px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: rgb(82, 20, 20); /* Material Blue */
+  color: white;
+}
+
+tbody tr:hover {
+  background-color: rgba(245, 245, 245, 0.062);
 }/*# sourceMappingURL=index.css.map */
