@@ -46,7 +46,6 @@ const Search = () => {
         alert('Album added to your ListenLater playlist!');
       })
       .catch((error) => {
-        alert('Album already in your ListenLater playlist!');
         console.error("Fetch error:", error);
       });
   };
@@ -64,7 +63,7 @@ const Search = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyPress}
-        placeholder="Album name"
+        placeholder="Album/artist name"
         className="searchBubble"
       />{" "}
       <br></br>
