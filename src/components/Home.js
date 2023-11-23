@@ -63,22 +63,32 @@ const Home = () => {
 
   return curUser ? (
     <div className="content">
-    {curUser.admin ? <Link to={'/admin'} style={{color: 'red'}}>Admin room</Link> : <p>Hello, {curUser.username}</p>}
+      {curUser.admin ? (
+        <Link to={"/admin"} style={{ color: "red" }}>
+          Admin room
+        </Link>
+      ) : (
+        <p>Hello, {curUser.username} 👋</p>
+      )}
       <ul>
         {albums.length !== 0 ? (
           albums.map((album) => (
             <li key={album.name}>
-              <Link to={`https://www.last.fm/music/${album.artist.replace(/ /g, '+')}/${album.name.replace(/ /g, '+')}`}>
-                <div
-                  className="closeButton"
-                  onClick={(e) => handleDelete(album.id)}
-                >
-                  ❌
-                </div>
-                <div>
-                  <img src={album.imgUrl} /> <br />
-                  {album.name} • {album.artist}
-                </div>
+              <div
+                className="closeButton"
+                onClick={(e) => handleDelete(album.id)}
+              >
+                ❌
+              </div>
+              <Link
+                to={`https://www.last.fm/music/${album.artist.replace(
+                  / /g,
+                  "+"
+                )}/${album.name.replace(/ /g, "+")}`}
+              >
+                <img src={album.imgUrl} /> <br />
+                {album.name}
+                <div className="artist">{album.artist}</div>
               </Link>
             </li>
           ))

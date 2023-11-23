@@ -45,11 +45,18 @@ const Search = () => {
         return response.json();
       })
       .then(() => {
+        alert('Album added to your ListenLater playlist!');
         navigate("/");
       })
       .catch((error) => {
         console.error("Fetch error:", error);
       });
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return curUser ? (
@@ -58,6 +65,7 @@ const Search = () => {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleKeyPress}
         placeholder="Album name"
         style={{ textAlign: "center" }}
       />{" "}
@@ -75,7 +83,8 @@ const Search = () => {
                 <div className="addButton">+</div>
                 <img src={album.image[3]["#text"]} />
                 <aside>
-                  {album.name} • {album.artist}
+                  <div>{album.name}</div>
+                  <div className="artist">{album.artist}</div>
                 </aside>
               </div>
             </a>

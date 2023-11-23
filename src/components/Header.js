@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <header>
-      <Link to={'/'} className="headerLeft">ListenLater🎵</Link>
+      <Link to={'/'} className="headerLeft">ListenLater</Link>
       <Link to={'/search'} className="headerMiddle">+</Link>
       {curUser ? (
         <Link to={'/login'} onClick={handleLogout} className="headerRight">Logout</Link>
