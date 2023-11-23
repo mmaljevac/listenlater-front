@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import { AppContext } from "./AppContext";
 import { useState } from "react";
 import Admin from "./components/Admin";
+import Account from "./components/Account";
 
 function App() {
   const [curUser, setCurUser] = useState(JSON.parse(sessionStorage.getItem('curUser')));
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/search" element={<Search />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/account" element={<Account />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/admin" element={<Admin />}></Route>
         </Routes>

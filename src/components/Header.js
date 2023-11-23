@@ -7,18 +7,12 @@ const Header = () => {
   const { curUser, setCurUser } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setCurUser(null);
-    sessionStorage.removeItem('curUser');
-    navigate('/login');
-  };
-
   return (
     <header>
       <Link to={'/'} className="headerLeft">ListenLater</Link>
       <Link to={'/search'} className="headerMiddle">+</Link>
       {curUser ? (
-        <Link to={'/login'} onClick={handleLogout} className="headerRight">Logout</Link>
+        <Link to={'/account'} className="headerRight">Account</Link>
       ) : (
         <Link to={'/login'} className="headerRight">Login</Link>
       )}

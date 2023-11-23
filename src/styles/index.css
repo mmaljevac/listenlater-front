@@ -154,9 +154,11 @@ a:hover img {
 @keyframes flyUp {
   from {
     transform: translateY(50px);
+    opacity: 0;
   }
   to {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 .artist {
@@ -187,7 +189,7 @@ button:active {
 }
 
 input {
-  padding: 10px;
+  padding: 7px 10px;
   font-size: 16px;
   border: 3px solid rgb(255, 255, 255);
   border-radius: 10px;
@@ -195,17 +197,21 @@ input {
   outline: none;
   background-color: #ffffff;
   transition: border-color 0.3s ease;
+  margin: 5px;
 }
 input:focus {
   border-color: #1ee21e;
 }
 
-form div {
-  margin: 10px 0;
+.searchBubble {
+  margin-bottom: 0;
+  padding: 10px;
+  border-radius: 30px;
+  text-align: center;
 }
 
-label {
-  padding: 10px 10px 10px 0;
+form div {
+  margin: 10px 0;
 }
 
 table {

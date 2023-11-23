@@ -58,7 +58,6 @@ const Admin = () => {
   };
 
   const handleDeleteUser = async (id) => {
-    console.log(id);
     await fetch(`http://localhost:8080/users/${id}`, {
       method: "DELETE",
     })
@@ -100,6 +99,30 @@ const Admin = () => {
       });
   };
 
+  const handleAdminPermissionChange = async (user) => {
+    const username = user.username;
+    const email = user.email;
+    const password = user.password;
+    const isAdmin = !user.admin;
+    //TODO change admin permission
+    await fetch(`http://localhost:8080/users/${user.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password, isAdmin })
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  };
+
   return (
     <div>
       <h2>Users</h2>
@@ -120,7 +143,7 @@ const Admin = () => {
                 <td>{user.id}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.admin ? "Yes" : "No"}</td>
+                <td><Link onClick={() => handleAdminPermissionChange(user)}>{user.admin ? "Yes" : "No"}</Link></td>
                 <td>
                   <Link onClick={() => handleDeleteUser(user.id)}>🗑️</Link>
                 </td>

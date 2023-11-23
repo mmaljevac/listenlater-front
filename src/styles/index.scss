@@ -156,9 +156,11 @@ a {
 @keyframes flyUp {
   from {
     transform: translateY(50px);
+    opacity: 0;
   }
   to {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -190,7 +192,7 @@ button {
 }
 
 input {
-  padding: 10px;
+  padding: 7px 10px;
   font-size: 16px;
   border: 3px solid rgb(255, 255, 255);
   border-radius: 10px;
@@ -201,13 +203,17 @@ input {
   &:focus {
     border-color: #1ee21e;
   }
+  margin: 5px;
+}
+.searchBubble {
+  margin-bottom: 0;
+  padding: 10px;
+  border-radius: 30px;
+  text-align: center;
 }
 
 form div {
   margin: 10px 0;
-}
-label {
-  padding: 10px 10px 10px 0;
 }
 
 table {

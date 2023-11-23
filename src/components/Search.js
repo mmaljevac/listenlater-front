@@ -67,7 +67,7 @@ const Search = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyPress}
         placeholder="Album name"
-        style={{ textAlign: "center" }}
+        className="searchBubble"
       />{" "}
       <br></br>
       <button onClick={handleSearch}>Search</button>
