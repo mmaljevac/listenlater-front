@@ -20,7 +20,6 @@ const Account = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Update state based on the input field name
     switch (name) {
       case "currentPassword":
         setCurrentPassword(value);
@@ -38,8 +37,6 @@ const Account = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(currentPassword)
-    console.log(newPassword)
 
     if (newPassword === confirmPassword) {
       await fetch(`http://localhost:8080/users/changePassword/${curUser.id}`, {

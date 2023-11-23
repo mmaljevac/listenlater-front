@@ -90,8 +90,14 @@ li {
 
   animation: flyUp 0.5s ease-in-out both;
 }
-.seachLi {
+.searchLi {
   width: 70%;
+  background-color: rgb(41, 41, 41);
+  border-radius: 10px;
+  margin: 8px 0;
+  &:hover {
+    background-color: #252525;
+  }
 }
 .searchItems {
   width: 30%;

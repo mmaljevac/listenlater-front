@@ -18,7 +18,6 @@ const Search = () => {
         const data = await response.json();
 
         setSearchResults(data.results.albummatches.album);
-        console.log(searchResults);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -26,7 +25,6 @@ const Search = () => {
   };
 
   const handleAlbumClick = async (album) => {
-    console.log(album);
     const name = album.name;
     const artist = album.artist;
     const imgUrl = album.image[3]["#text"];
@@ -46,9 +44,9 @@ const Search = () => {
       })
       .then(() => {
         alert('Album added to your ListenLater playlist!');
-        navigate("/");
       })
       .catch((error) => {
+        alert('Album already in your ListenLater playlist!');
         console.error("Fetch error:", error);
       });
   };
@@ -74,7 +72,7 @@ const Search = () => {
       <ul className="seachUl">
         {searchResults.map((album) => (
           <li
-            className="seachLi"
+            className="searchLi"
             key={album.name}
             onClick={() => handleAlbumClick(album)}
           >

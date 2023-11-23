@@ -87,8 +87,14 @@ li:hover .closeButton {
   visibility: visible;
 }
 
-.seachLi {
+.searchLi {
   width: 70%;
+  background-color: rgb(41, 41, 41);
+  border-radius: 10px;
+  margin: 8px 0;
+}
+.searchLi:hover {
+  background-color: #252525;
 }
 
 .searchItems {

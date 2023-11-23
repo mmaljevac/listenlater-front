@@ -100,23 +100,27 @@ const Admin = () => {
   };
 
   const handleAdminPermissionChange = async (user) => {
-    const username = user.username;
-    const email = user.email;
-    const password = user.password;
-    const isAdmin = !user.admin;
-    //TODO change admin permission
-    await fetch(`http://localhost:8080/users/${user.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password, isAdmin })
+    await fetch(`http://localhost:8080/users/updatePermissions/${user.id}`, {
+      method: "PATCH",
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          alert("Permission changed!");
+          setUsers(prevUsers => {
+            return prevUsers.map(prevUser => {
+              if (prevUser.id === user.id) {
+                return { ...prevUser, admin: !user.admin };
+              }
+              return prevUser;
+            });
+          });
+        }
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -143,9 +147,13 @@ const Admin = () => {
                 <td>{user.id}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td><Link onClick={() => handleAdminPermissionChange(user)}>{user.admin ? "Yes" : "No"}</Link></td>
                 <td>
-                  <Link onClick={() => handleDeleteUser(user.id)}>🗑️</Link>
+                  <Link onClick={() => handleAdminPermissionChange(user)}>
+                    {user.admin ? "Yes" : "No"}
+                  </Link>
+                </td>
+                <td>
+                  <Link onClick={() => handleDeleteUser(user.id)}>Delete</Link>
                 </td>
               </tr>
             ))}
@@ -171,7 +179,7 @@ const Admin = () => {
                 <td>{album.artist}</td>
                 <td>{album.idUser}</td>
                 <td>
-                  <Link onClick={() => handleDeleteAlbum(album.id)}>🗑️</Link>
+                  <Link onClick={() => handleDeleteAlbum(album.id)}>Delete</Link>
                 </td>
               </tr>
             ))}
